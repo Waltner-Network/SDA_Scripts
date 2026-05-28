@@ -6,6 +6,7 @@ from catalystcentersdk.exceptions import ApiError
 #initiate connection to catalyst center API
 api = CatalystCenterAPI(verify=False)
 
+#function used to check if a submitted api call completed successfully
 def check_call_status(api, response, success_message, in_progress_message, failure_message):
     while True:
         time.sleep(2)  # Wait for a moment before checking status
@@ -34,6 +35,7 @@ def check_call_status(api, response, success_message, in_progress_message, failu
                 print(in_progress_message)
                 continue
 
+#function to take all ports assigned with "Open Authentication" and put them in "Closed Authentication" mode for a given switch IP
 def update_to_closed_mode(api, device_ip):
 
     networkDevice = api.devices.get_network_device_by_ip(ip_address=device_ip).response
@@ -90,4 +92,4 @@ def update_to_closed_mode(api, device_ip):
         except ApiError as e:
             print(f"API error occurred while updating ports: {e}")
 
-update_to_closed_mode(api, "10.189.0.20")
+update_to_closed_mode(api, "10.10.10.10")
